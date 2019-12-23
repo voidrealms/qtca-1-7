@@ -19,7 +19,9 @@ int main(int argc, char *argv[])
 
     for (int i = 0;i < pool->maxThreadCount();i++)
     {
-        Worker* worker = new Worker(&a, &counter,&mutex);
+        //having a parent causes issues on some compilers and platforms
+        //Worker* worker = new Worker(&a, &counter,&mutex);
+        Worker* worker = new Worker(nullptr, &counter,&mutex);
         worker->setAutoDelete(true);
         pool->start(worker);
     }
